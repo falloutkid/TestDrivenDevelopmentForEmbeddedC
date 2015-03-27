@@ -28,5 +28,14 @@ namespace UnitTestProject
 			LedDriver_TurnOn(1);
 			Assert::AreEqual(1, (int)virtual_led);
 		}
+
+		TEST_METHOD(TurnOffLedOne)
+		{
+			uint16_t virtual_led;
+			LedDriver_Create(&virtual_led);
+			LedDriver_TurnOn(1);
+			LedDriver_TurnOn(0);
+			Assert::AreEqual(1, (int)virtual_led);
+		}
 	};
 }
