@@ -7,32 +7,31 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitTestProject
 {
+	static uint16_t virtual_led;
 	TEST_CLASS(TEST_LedDeiver)
-	{
+	{	
 	public:
-		TEST_CLASS_INITIALIZE(LedDriverInitialize){}
+
+		TEST_CLASS_INITIALIZE(LedDriverInitialize)
+		{
+			LedDriver_Create(&virtual_led);
+		}
 
 		TEST_CLASS_CLEANUP(LedDriverCleanup){}
 
 		TEST_METHOD(LedOffAfterCreate)
-		{
-			uint16_t virtual_led = 0xFFFF;
-			LedDriver_Create(&virtual_led);
+		{		
 			Assert::AreEqual(0, (int)virtual_led);
 		}
 
 		TEST_METHOD(TurnOnLedOne)
 		{
-			uint16_t virtual_led;
-			LedDriver_Create(&virtual_led);
 			LedDriver_TurnOn(1);
 			Assert::AreEqual(1, (int)virtual_led);
 		}
 
 		TEST_METHOD(TurnOffLedOne)
 		{
-			uint16_t virtual_led;
-			LedDriver_Create(&virtual_led);
 			LedDriver_TurnOn(1);
 			LedDriver_TurnOn(0);
 			Assert::AreEqual(1, (int)virtual_led);
