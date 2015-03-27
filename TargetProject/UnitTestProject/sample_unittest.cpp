@@ -7,6 +7,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitTestProject
 {	
+	/*
 	TEST_MODULE_INITIALIZE(ModuleInitialize)
 	{
 		Logger::WriteMessage("In Module Initialize\n");
@@ -16,6 +17,7 @@ namespace UnitTestProject
 	{
 		Logger::WriteMessage("In Module Cleanup\n");
 	}
+	*/
 
 	TEST_CLASS(SampleUnitTest)
 	{

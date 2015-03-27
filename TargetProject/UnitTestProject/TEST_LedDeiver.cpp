@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
+#include <TargetApplication\LedDriver.h>
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitTestProject
@@ -14,7 +16,9 @@ namespace UnitTestProject
 
 		TEST_METHOD(LedOffAfterCreate)
 		{
-			Assert::Fail(L"Start here");
+			uint16_t virtual_led = 0xFFFF;
+			LedDriver_Create(virtual_led);
+			Assert::AreEqual(0, (int)virtual_led);
 		}
 	};
 }
