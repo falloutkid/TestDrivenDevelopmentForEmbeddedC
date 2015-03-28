@@ -89,6 +89,7 @@ extern "C" {
 
 	BOOL LedDriver_IsOff(int led_number)
 	{
+		/*
 		if (IsLedOutOfBounds(led_number))
 		{
 			return TRUE;
@@ -97,6 +98,8 @@ extern "C" {
 		if ((ledsImage && convertLedNumberToBit(led_number) != 0))
 			return FALSE;
 		return TRUE;
+		*/
+		return !LedDriver_IsOn(led_number);
 	}
 
 #ifdef __cplusplus
