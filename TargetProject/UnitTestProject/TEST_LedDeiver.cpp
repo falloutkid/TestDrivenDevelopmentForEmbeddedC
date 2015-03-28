@@ -104,5 +104,12 @@ namespace UnitTestProject
 			LedDriver_TurnOn(8);
 			Assert::IsTrue(LedDriver_IsOn(8), L"LED‚ªOFFó‘Ô");
 		}
+
+		TEST_METHOD(IsOff)
+		{
+			Assert::IsTrue(LedDriver_IsOff(8), L"LED‚ªONó‘Ô");
+			LedDriver_TurnOn(8);
+			Assert::IsFalse(LedDriver_IsOff(8), L"LED‚ªOFFó‘Ô");
+		}
 	};
 }
