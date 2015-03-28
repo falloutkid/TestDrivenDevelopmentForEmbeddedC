@@ -40,6 +40,10 @@ extern "C" {
 	}
 	void LedDriver_TurnOn(int led_number)
 	{
+		if ((led_number <= 0) || (led_number > 16))
+		{
+			return;
+		}
 		ledsImage |= (1 << (led_number - 1));
 		updateHardware();
 	}
@@ -50,6 +54,10 @@ extern "C" {
 
 	void LedDriver_TurnOff(int led_number)
 	{
+		if ((led_number <= 0) || (led_number > 16))
+		{
+			return;
+		}
 		ledsImage ^= (1 << (led_number - 1));
 		updateHardware();
 	}

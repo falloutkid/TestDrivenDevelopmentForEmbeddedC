@@ -75,5 +75,27 @@ namespace UnitTestProject
 
 			Assert::AreEqual(0x80, (int)virtual_led);
 		}
+
+		TEST_METHOD(OutOfBoundsChangesNothoingTurnOn)
+		{
+			LedDriver_TurnOn(8);
+			LedDriver_TurnOn(-1);
+			LedDriver_TurnOn(0);
+			LedDriver_TurnOn(17);
+			LedDriver_TurnOn(3141);
+
+			Assert::AreEqual(0x80, (int)virtual_led);
+		}
+
+		TEST_METHOD(OutOfBoundsChangesNothoingTurnOff)
+		{
+			LedDriver_TurnAllOn();
+			LedDriver_TurnOff(-1);
+			LedDriver_TurnOff(0);
+			LedDriver_TurnOff(17);
+			LedDriver_TurnOff(3141);
+
+			Assert::AreEqual(0xffff, (int)virtual_led);
+		}
 	};
 }
