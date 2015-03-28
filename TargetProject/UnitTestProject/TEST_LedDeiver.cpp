@@ -97,5 +97,12 @@ namespace UnitTestProject
 
 			Assert::AreEqual(0xffff, (int)virtual_led);
 		}
+
+		TEST_METHOD(IsOn)
+		{
+			Assert::IsFalse(LedDriver_IsOn(8), L"LED‚ªONó‘Ô");
+			LedDriver_TurnOn(8);
+			Assert::IsTrue(LedDriver_IsOn(8), L"LED‚ªOFFó‘Ô");
+		}
 	};
 }

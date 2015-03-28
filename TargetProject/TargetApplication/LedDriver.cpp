@@ -77,6 +77,8 @@ extern "C" {
 
 	BOOL LedDriver_IsOn(int led_number)
 	{
+		if ((ledsImage && convertLedNumberToBit(led_number) != 0))
+			return TRUE;
 		return FALSE;
 	}
 
