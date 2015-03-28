@@ -47,8 +47,10 @@ extern "C" {
 	static void clearLedImageBit(int led_number)
 	{
 	}
+
 	void LedDriver_TurnOff(int led_number)
 	{
+		*ledsAddress ^= (1 << (led_number - 1));
 	}
 
 	void LedDriver_TurnAllOn(void)
