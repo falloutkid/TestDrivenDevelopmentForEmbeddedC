@@ -55,6 +55,7 @@ extern "C" {
 
 	void LedDriver_TurnAllOn(void)
 	{
+		*ledsAddress = ALL_LEDS_ON;
 	}
 
 	void LedDriver_TurnAllOff(void)
