@@ -47,11 +47,10 @@ namespace UnitTestProject
 
 		TEST_METHOD(TurnOffAnyLed)
 		{
-			LedDriver_TurnOn(9);
-			LedDriver_TurnOn(8);
+			LedDriver_TurnAllOn();
 			LedDriver_TurnOff(8);
 
-			Assert::AreEqual(0x100, (int)virtual_led);
+			Assert::AreEqual(0xFF7F, (int)virtual_led);
 		}
 
 		TEST_METHOD(AllOn)
