@@ -60,6 +60,7 @@ extern "C" {
 
 	void LedDriver_TurnAllOff(void)
 	{
+		*ledsAddress = ALL_LEDS_OFF;
 	}
 
 	BOOL LedDriver_IsOn(int led_number)

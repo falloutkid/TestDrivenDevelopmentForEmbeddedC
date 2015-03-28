@@ -60,5 +60,13 @@ namespace UnitTestProject
 
 			Assert::AreEqual(0xffff, (int)virtual_led);
 		}
+
+		TEST_METHOD(AllOff)
+		{
+			LedDriver_TurnAllOn();
+			LedDriver_TurnAllOff();
+
+			Assert::AreEqual(0, (int)virtual_led);
+		}
 	};
 }
