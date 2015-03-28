@@ -12,12 +12,12 @@ namespace UnitTestProject
 	{	
 	public:
 
-		TEST_CLASS_INITIALIZE(LedDriverInitialize)
+		TEST_METHOD_INITIALIZE(LedDriverInitialize)
 		{
 			LedDriver_Create(&virtual_led);
 		}
 
-		TEST_CLASS_CLEANUP(LedDriverCleanup){}
+		TEST_METHOD_CLEANUP(LedDriverCleanup){}
 
 		TEST_METHOD(LedOffAfterCreate)
 		{		
@@ -35,6 +35,14 @@ namespace UnitTestProject
 			LedDriver_TurnOn(1);
 			LedDriver_TurnOn(0);
 			Assert::AreEqual(1, (int)virtual_led);
+		}
+
+		TEST_METHOD(TurnOnMultipleLeds)
+		{
+			LedDriver_TurnOn(9);
+			LedDriver_TurnOn(8);
+
+			Assert::AreEqual(0x180, (int)virtual_led);
 		}
 	};
 }

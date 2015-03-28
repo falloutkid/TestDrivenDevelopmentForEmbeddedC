@@ -8,9 +8,9 @@ extern "C" {
 	static uint16_t *ledsAddress;
 	static uint16_t ledsImage;
 
-	void LedDriver_Create(uint16_t *address)
+	void LedDriver_Create(uint16_t *leds_address)
 	{		
-		ledsAddress = address;
+		ledsAddress = leds_address;
 		*ledsAddress = 0;
 	}
 
@@ -20,12 +20,12 @@ extern "C" {
 
 	enum { FIRST_LED = 1, LAST_LED = 16 };
 
-	static BOOL IsLedOutOfBounds(int ledNumber)
+	static BOOL IsLedOutOfBounds(int led_number)
 	{
 		return FALSE;
 	}
 
-	static uint16_t convertLedNumberToBit(int ledNumber)
+	static uint16_t convertLedNumberToBit(int led_number)
 	{
 		return 0;
 	}
@@ -35,19 +35,19 @@ extern "C" {
 		*ledsAddress = 0;
 	}
 
-	static void setLedImageBit(int ledNumber)
+	static void setLedImageBit(int led_number)
 	{
 		ledsImage = 0;
 	}
-	void LedDriver_TurnOn(int ledNumber)
+	void LedDriver_TurnOn(int led_number)
 	{
-		*ledsAddress = 1;
+		*ledsAddress |= (1 << (led_number -1 ));
 	}
 
-	static void clearLedImageBit(int ledNumber)
+	static void clearLedImageBit(int led_number)
 	{
 	}
-	void LedDriver_TurnOff(int ledNumber)
+	void LedDriver_TurnOff(int led_number)
 	{
 	}
 
@@ -59,12 +59,12 @@ extern "C" {
 	{
 	}
 
-	BOOL LedDriver_IsOn(int ledNumber)
+	BOOL LedDriver_IsOn(int led_number)
 	{
 		return FALSE;
 	}
 
-	BOOL LedDriver_IsOff(int ledNumber)
+	BOOL LedDriver_IsOff(int led_number)
 	{
 		return FALSE;
 	}
