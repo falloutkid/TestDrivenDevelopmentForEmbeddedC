@@ -105,11 +105,30 @@ namespace UnitTestProject
 			Assert::IsTrue(LedDriver_IsOn(8), L"LEDがOFF状態");
 		}
 
+		TEST_METHOD(OutOfBoundsIsOn)
+		{
+			Assert::IsFalse(LedDriver_IsOn(0), L"範囲外のアクセス");
+			Assert::IsFalse(LedDriver_IsOn(-1), L"範囲外のアクセス");
+			Assert::IsFalse(LedDriver_IsOn(-5), L"範囲外のアクセス");
+			Assert::IsFalse(LedDriver_IsOn(17), L"範囲外のアクセス");
+			Assert::IsFalse(LedDriver_IsOn(3141), L"範囲外のアクセス");
+		}
+
 		TEST_METHOD(IsOff)
 		{
 			Assert::IsTrue(LedDriver_IsOff(8), L"LEDがON状態");
 			LedDriver_TurnOn(8);
 			Assert::IsFalse(LedDriver_IsOff(8), L"LEDがOFF状態");
+		}
+
+		TEST_METHOD(OutOfBoundsIsOff)
+		{
+			LedDriver_TurnAllOn();
+			Assert::IsTrue(LedDriver_IsOff(0), L"範囲外のアクセス");
+			Assert::IsTrue(LedDriver_IsOff(-1), L"範囲外のアクセス");
+			Assert::IsTrue(LedDriver_IsOff(-5), L"範囲外のアクセス");
+			Assert::IsTrue(LedDriver_IsOff(17), L"範囲外のアクセス");
+			Assert::IsTrue(LedDriver_IsOff(3141), L"範囲外のアクセス");
 		}
 	};
 }
