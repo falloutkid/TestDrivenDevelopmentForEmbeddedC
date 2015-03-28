@@ -11,7 +11,8 @@ extern "C" {
 	void LedDriver_Create(uint16_t *leds_address)
 	{		
 		ledsAddress = leds_address;
-		*ledsAddress = 0;
+		ledsImage = ALL_LEDS_OFF;
+		*ledsAddress = ledsImage;
 	}
 
 	void LedDriver_Destroy(void)
@@ -32,16 +33,17 @@ extern "C" {
 
 	static void updateHardware(void)
 	{
-		*ledsAddress = 0;
+		ledsImage = ALL_LEDS_OFF;
+		*ledsAddress = ledsImage;
 	}
 
 	static void setLedImageBit(int led_number)
 	{
-		ledsImage = 0;
 	}
 	void LedDriver_TurnOn(int led_number)
 	{
-		*ledsAddress |= (1 << (led_number -1 ));
+		ledsImage |= (1 << (led_number - 1));
+		*ledsAddress = ledsImage;
 	}
 
 	static void clearLedImageBit(int led_number)
@@ -50,17 +52,20 @@ extern "C" {
 
 	void LedDriver_TurnOff(int led_number)
 	{
-		*ledsAddress ^= (1 << (led_number - 1));
+		ledsImage ^= (1 << (led_number - 1));
+		*ledsAddress = ledsImage;
 	}
 
 	void LedDriver_TurnAllOn(void)
 	{
-		*ledsAddress = ALL_LEDS_ON;
+		ledsImage = ALL_LEDS_ON;
+		*ledsAddress = ledsImage;
 	}
 
 	void LedDriver_TurnAllOff(void)
 	{
-		*ledsAddress = ALL_LEDS_OFF;
+		ledsImage = ALL_LEDS_OFF;
+		*ledsAddress = ledsImage;
 	}
 
 	BOOL LedDriver_IsOn(int led_number)

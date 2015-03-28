@@ -67,5 +67,13 @@ namespace UnitTestProject
 
 			Assert::AreEqual(0, (int)virtual_led);
 		}
+
+		TEST_METHOD(LedMemoryReadCheck)
+		{
+			virtual_led = 0xFFFF;
+			LedDriver_TurnOn(8);
+
+			Assert::AreEqual(0x80, (int)virtual_led);
+		}
 	};
 }
