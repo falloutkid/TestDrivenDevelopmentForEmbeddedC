@@ -65,5 +65,9 @@ namespace UnitTestProject
 			Logger::WriteMessage("In TestMethodSample2 Execute\n");
 			Assert::IsTrue(true);
 		}
+
+		BEGIN_TEST_METHOD_ATTRIBUTE(TestMethodSample2)
+			TEST_IGNORE()
+			END_TEST_METHOD_ATTRIBUTE()
 	};
 }
