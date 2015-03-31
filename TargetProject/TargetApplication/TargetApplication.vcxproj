@@ -75,12 +75,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LedDriver.h" />
+    <ClInclude Include="LightController.h" />
     <ClInclude Include="SampleSource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LedDriver.cpp" />
+    <ClCompile Include="LightSheduler.cpp" />
     <ClCompile Include="SampleSource.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
