@@ -27,5 +27,11 @@ namespace UnitTestProject
 			Assert::AreEqual((int)LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
 		}
 
+		TEST_METHOD(RememberTheLastLightIdControlled)
+		{
+			LightController_On(10);
+			Assert::AreEqual(10, LightControllerSpy_GetLastId());
+			Assert::AreEqual((int)LIGHT_ON, LightControllerSpy_GetLastState());
+		}
 	};
 }
