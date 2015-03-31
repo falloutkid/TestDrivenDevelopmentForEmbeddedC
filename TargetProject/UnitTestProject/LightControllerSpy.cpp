@@ -12,12 +12,22 @@ extern "C" {
 
 	int LightControllerSpy_GetLastId()
 	{
-		return 0;
+		return LIGHT_ID_UNKNOWN;
 	}
 
 	int LightControllerSpy_GetLastState()
 	{
-		return 0;
+		return LIGHT_STATE_UNKNOWN;
+	}
+
+	/// LightController‚ÌƒXƒ^ƒu
+	void LightController_Create(void)
+	{
+
+	}
+	void LightController_Destroy(void)
+	{
+
 	}
 #ifdef __cplusplus
 }
