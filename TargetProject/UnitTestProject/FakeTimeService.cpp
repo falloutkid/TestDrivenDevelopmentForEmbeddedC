@@ -13,6 +13,21 @@ extern "C" {
 	{
 	}
 
+	void TimeService_GetTime(Time * time)
+	{
+		time->minuteOfDay = (int)TIME_UNKNOWN;
+		time->dayOfWeek = (int)TIME_UNKNOWN;
+	}
+
+	void FakeTimeService_SetMinute(int)
+	{
+
+	}
+
+	void FakeTimeService_SetDay(int)
+	{
+
+	}
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

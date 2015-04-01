@@ -22,10 +22,22 @@ namespace UnitTestProject
 			TimeService_Destroy();
 		}
 
-		TEST_METHOD(TestMethod1)
+		TEST_METHOD(Create)
 		{
-			// TODO: テスト コードをここに挿入します
+			Time time;
+			TimeService_GetTime(&time);
+			Assert::AreEqual((int)TIME_UNKNOWN, time.minuteOfDay);
+			Assert::AreEqual((int)TIME_UNKNOWN, time.dayOfWeek);
 		}
 
+		TEST_METHOD(Set)
+		{
+			Time time;
+			FakeTimeService_SetMinute(42);
+			FakeTimeService_SetDay(SATURDAY);
+			TimeService_GetTime(&time);
+			Assert::AreEqual(42, time.minuteOfDay);
+			Assert::AreEqual((int)SATURDAY, time.dayOfWeek);
+		}
 	};
 }
