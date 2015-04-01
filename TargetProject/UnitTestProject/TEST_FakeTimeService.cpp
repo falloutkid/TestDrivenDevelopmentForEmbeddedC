@@ -12,12 +12,12 @@ namespace UnitTestProject
 	TEST_CLASS(TEST_FakeTimeService)
 	{
 	public:
-		TEST_CLASS_INITIALIZE(Setup)
+		TEST_METHOD_INITIALIZE(Setup)
 		{
 			TimeService_Create();
 		}
 
-		TEST_CLASS_CLEANUP(Teardown)
+		TEST_METHOD_CLEANUP(Teardown)
 		{
 			TimeService_Destroy();
 		}
