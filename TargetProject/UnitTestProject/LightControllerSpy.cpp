@@ -39,6 +39,12 @@ extern "C" {
 		last_id_ = id;
 		last_state_ = LIGHT_ON;
 	}
+
+	void LightController_Off(int id)
+	{
+		last_id_ = id;
+		last_state_ = LIGHT_OFF;
+	}
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
