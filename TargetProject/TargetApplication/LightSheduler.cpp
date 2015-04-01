@@ -35,6 +35,14 @@ extern "C" {
 
 	}
 
+	void operateLightController(ScheduledLightEvent* light_event)
+	{
+		if (light_event->event == (int)TURN_ON)
+			LightController_On(scheduled_event_.id);
+		else
+			LightController_Off(scheduled_event_.id);
+	}
+
 	void LightScheduler_WakeUp(void)
 	{
 		Time time;
@@ -45,10 +53,7 @@ extern "C" {
 		if (time.minuteOfDay != scheduled_event_.minuteOfDay)
 			return;
 
-		if (scheduled_event_.event == (int)TURN_ON)
-			LightController_On(scheduled_event_.id);
-		else
-			LightController_Off(scheduled_event_.id);
+		operateLightController(&scheduled_event_);
 	}
 
 	int scheduleEvent(int id, Day day, int minute, int event)
