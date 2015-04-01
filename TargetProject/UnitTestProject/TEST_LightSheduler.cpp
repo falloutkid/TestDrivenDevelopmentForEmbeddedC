@@ -50,7 +50,7 @@ namespace UnitTestProject
 			Assert::AreEqual((int)LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
 		}
 
-		TEST_METHOD(ScheduleOnEverydayItsTime)
+		TEST_METHOD(ScheduleOnEverydayItsTimeTurnOn)
 		{
 			LightScheduler_ScheduleTurnOn(3, EVERYDAY, 1200);
 			FakeTimeService_SetDay(MONDAY);
@@ -60,6 +60,18 @@ namespace UnitTestProject
 
 			Assert::AreEqual((int)3, LightControllerSpy_GetLastId());
 			Assert::AreEqual((int)LIGHT_ON, LightControllerSpy_GetLastState());
+		}
+
+		TEST_METHOD(ScheduleOnEverydayItsTimeTurnOff)
+		{
+			LightScheduler_ScheduleTurnOff(3, EVERYDAY, 1200);
+			FakeTimeService_SetDay(MONDAY);
+			FakeTimeService_SetMinute(1200);
+
+			LightScheduler_WakeUp();
+
+			Assert::AreEqual((int)3, LightControllerSpy_GetLastId());
+			Assert::AreEqual((int)LIGHT_OFF, LightControllerSpy_GetLastState());
 		}
 	};
 }
