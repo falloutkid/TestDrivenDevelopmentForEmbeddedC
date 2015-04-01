@@ -76,9 +76,11 @@
   <ItemGroup>
     <ClInclude Include="LedDriver.h" />
     <ClInclude Include="LightController.h" />
+    <ClInclude Include="LightScheduler.h" />
     <ClInclude Include="SampleSource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TimeService.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LedDriver.cpp" />
