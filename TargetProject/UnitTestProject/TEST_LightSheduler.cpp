@@ -93,5 +93,21 @@ namespace UnitTestProject
 			LightScheduler_WakeUp();
 			checkLightState(3, LIGHT_ON);
 		}
+
+		TEST_METHOD(ScheduleWeekEndItsSaturday)
+		{
+			LightScheduler_ScheduleTurnOn(3, WEEKEND, 1200);
+			setTimeTo(SATURDAY, 1200);
+			LightScheduler_WakeUp();
+			checkLightState(3, LIGHT_ON);
+		}
+
+		TEST_METHOD(ScheduleWeekEndItsSunday)
+		{
+			LightScheduler_ScheduleTurnOn(3, WEEKEND, 1200);
+			setTimeTo(SATURDAY, 1200);
+			LightScheduler_WakeUp();
+			checkLightState(3, LIGHT_ON);
+		}
 	};
 }

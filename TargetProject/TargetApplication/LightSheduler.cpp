@@ -43,13 +43,30 @@ extern "C" {
 			LightController_Off(scheduled_event_.id);
 	}
 
+	bool isLightRespondToday(Time* time, ScheduledLightEvent* light_event)
+	{
+		if (light_event->day == EVERYDAY)
+			return true;
+
+		if (time->dayOfWeek == light_event->day)
+			return true;
+
+		if ((light_event->day == WEEKEND) && ((time->dayOfWeek == SATURDAY) || (time->dayOfWeek == SUNDAY)))
+			return true;
+
+		if ((light_event->day == WEEKDAY) && ((time->dayOfWeek != SATURDAY) && (time->dayOfWeek == SUNDAY)))
+			return true;
+
+		return false;
+	}
+
 	void processLightController(Time* time, ScheduledLightEvent* light_event)
 	{
 		if (light_event->id == UNUSED)
 			return;
 		if (time->minuteOfDay != light_event->minuteOfDay)
 			return;
-		if ((light_event->day != EVERYDAY) && (time->dayOfWeek != light_event->day))
+		if (!isLightRespondToday(time, light_event))
 			return;
 
 		operateLightController(light_event);
