@@ -51,22 +51,23 @@ extern "C" {
 			LightController_Off(scheduled_event_.id);
 	}
 
-	int LightScheduler_ScheduleTurnOn(int id, Day day, int minute)
+	int scheduleEvent(int id, Day day, int minute, int event)
 	{
 		scheduled_event_.id = id;
 		scheduled_event_.day = day;
 		scheduled_event_.minuteOfDay = minute;
-		scheduled_event_.event = (int)TURN_ON;
+		scheduled_event_.event = event;
 		return 0;
+	}
+
+	int LightScheduler_ScheduleTurnOn(int id, Day day, int minute)
+	{
+		return scheduleEvent(id, day, minute, (int)TURN_ON);
 	}
 
 	int LightScheduler_ScheduleTurnOff(int id, Day day, int minute)
 	{
-		scheduled_event_.id = id;
-		scheduled_event_.day = day;
-		scheduled_event_.minuteOfDay = minute;
-		scheduled_event_.event = (int)TURN_OFF;
-		return 0;
+		return scheduleEvent(id, day, minute, (int)TURN_OFF);
 	}
 #ifdef __cplusplus
 }
