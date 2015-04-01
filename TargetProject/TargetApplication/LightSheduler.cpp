@@ -43,17 +43,22 @@ extern "C" {
 			LightController_Off(scheduled_event_.id);
 	}
 
+	void processLightController(Time* time, ScheduledLightEvent* light_event)
+	{
+		if (light_event->id == UNUSED)
+			return;
+		if (time->minuteOfDay != light_event->minuteOfDay)
+			return;
+
+		operateLightController(light_event);
+	}
+
 	void LightScheduler_WakeUp(void)
 	{
 		Time time;
 		TimeService_GetTime(&time);
 
-		if (scheduled_event_.id == UNUSED)
-			return;
-		if (time.minuteOfDay != scheduled_event_.minuteOfDay)
-			return;
-
-		operateLightController(&scheduled_event_);
+		processLightController(&time, &scheduled_event_);
 	}
 
 	int scheduleEvent(int id, Day day, int minute, int event)
