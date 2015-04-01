@@ -78,5 +78,12 @@ namespace UnitTestProject
 			checkLightState(3, (int)LIGHT_OFF);
 		}
 
+		TEST_METHOD(ScheduleTuesdayButItsMonday)
+		{
+			LightScheduler_ScheduleTurnOn(3, TUESDAY, 1200);
+			setTimeTo(MONDAY, 1200);
+			LightScheduler_WakeUp();
+			checkLightState(LIGHT_ID_UNKNOWN, LIGHT_STATE_UNKNOWN);
+		}
 	};
 }

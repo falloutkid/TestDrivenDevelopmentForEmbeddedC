@@ -49,6 +49,8 @@ extern "C" {
 			return;
 		if (time->minuteOfDay != light_event->minuteOfDay)
 			return;
+		if (light_event->day != EVERYDAY)
+			return;
 
 		operateLightController(light_event);
 	}
