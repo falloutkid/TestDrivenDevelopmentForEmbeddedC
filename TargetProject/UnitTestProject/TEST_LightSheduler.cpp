@@ -15,11 +15,13 @@ namespace UnitTestProject
 		TEST_METHOD_INITIALIZE(setup)
 		{
 			LightController_Create();
+			LightScheduler_Create();
 		}
 
 		TEST_METHOD_CLEANUP(teardown)
 		{
-			LightController_Create();
+			LightScheduler_Destroy();
+			LightController_Destroy();
 		}
 
 		TEST_METHOD(NoChangeToLightsDuringInitialization)
@@ -36,8 +38,6 @@ namespace UnitTestProject
 			Assert::AreEqual((int)LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
 			Assert::AreEqual((int)LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
 		}
-#if 0
-		
 
 		TEST_METHOD(ScheduleOnEverydayNotTimeYet)
 		{
@@ -46,9 +46,20 @@ namespace UnitTestProject
 			FakeTimeService_SetMinute(1199);
 			LightScheduler_WakeUp();
 
-			Assert::AreEqual(LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
-			Assert::AreEqual(LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
+			Assert::AreEqual((int)LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
+			Assert::AreEqual((int)LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
 		}
-#endif
+
+		TEST_METHOD(ScheduleOnEverydayItsTime)
+		{
+			LightScheduler_ScheduleTurnOn(3, EVERYDAY, 1200);
+			FakeTimeService_SetDay(MONDAY);
+			FakeTimeService_SetMinute(1200);
+
+			LightScheduler_WakeUp();
+
+			Assert::AreEqual((int)3, LightControllerSpy_GetLastId());
+			Assert::AreEqual((int)LIGHT_ON, LightControllerSpy_GetLastState());
+		}
 	};
 }
