@@ -24,54 +24,59 @@ namespace UnitTestProject
 			LightController_Destroy();
 		}
 
+		void checkLightState(int id, int state)
+		{
+			Assert::AreEqual(id, LightControllerSpy_GetLastId());
+			Assert::AreEqual(state, LightControllerSpy_GetLastState());
+		}
+
+		void setTimeTo(int day, int minute)
+		{
+			FakeTimeService_SetDay(day);
+			FakeTimeService_SetMinute(minute);
+		}
+
 		TEST_METHOD(NoChangeToLightsDuringInitialization)
 		{
-			Assert::AreEqual((int)LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
-			Assert::AreEqual((int)LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
+			checkLightState((int)LIGHT_ID_UNKNOWN, (int)LIGHT_STATE_UNKNOWN);
 		}
 
 		TEST_METHOD(NoScheduleNothingHappens)
 		{
-			FakeTimeService_SetDay(MONDAY);
-			FakeTimeService_SetMinute(100);
+			setTimeTo(MONDAY, 100);
 			LightScheduler_WakeUp();
-			Assert::AreEqual((int)LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
-			Assert::AreEqual((int)LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
+
+			checkLightState((int)LIGHT_ID_UNKNOWN, (int)LIGHT_STATE_UNKNOWN);
 		}
 
 		TEST_METHOD(ScheduleOnEverydayNotTimeYet)
 		{
 			LightScheduler_ScheduleTurnOn(3, EVERYDAY, 1200);
-			FakeTimeService_SetDay(MONDAY);
-			FakeTimeService_SetMinute(1199);
+			setTimeTo(MONDAY, 1199);
 			LightScheduler_WakeUp();
 
-			Assert::AreEqual((int)LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
-			Assert::AreEqual((int)LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
+			checkLightState((int)LIGHT_ID_UNKNOWN, (int)LIGHT_STATE_UNKNOWN);
 		}
 
 		TEST_METHOD(ScheduleOnEverydayItsTimeTurnOn)
 		{
 			LightScheduler_ScheduleTurnOn(3, EVERYDAY, 1200);
-			FakeTimeService_SetDay(MONDAY);
-			FakeTimeService_SetMinute(1200);
+			setTimeTo(MONDAY, 1200);
 
 			LightScheduler_WakeUp();
 
-			Assert::AreEqual((int)3, LightControllerSpy_GetLastId());
-			Assert::AreEqual((int)LIGHT_ON, LightControllerSpy_GetLastState());
+			checkLightState(3, (int)LIGHT_ON);
 		}
 
 		TEST_METHOD(ScheduleOnEverydayItsTimeTurnOff)
 		{
 			LightScheduler_ScheduleTurnOff(3, EVERYDAY, 1200);
-			FakeTimeService_SetDay(MONDAY);
-			FakeTimeService_SetMinute(1200);
+			setTimeTo(MONDAY, 1200);
 
 			LightScheduler_WakeUp();
 
-			Assert::AreEqual((int)3, LightControllerSpy_GetLastId());
-			Assert::AreEqual((int)LIGHT_OFF, LightControllerSpy_GetLastState());
+			checkLightState(3, (int)LIGHT_OFF);
 		}
+
 	};
 }
