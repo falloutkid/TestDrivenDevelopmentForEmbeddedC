@@ -49,7 +49,7 @@ extern "C" {
 			return;
 		if (time->minuteOfDay != light_event->minuteOfDay)
 			return;
-		if (light_event->day != EVERYDAY)
+		if ((light_event->day != EVERYDAY) && (time->dayOfWeek != light_event->day))
 			return;
 
 		operateLightController(light_event);
