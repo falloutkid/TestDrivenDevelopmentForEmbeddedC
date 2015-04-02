@@ -110,6 +110,21 @@ extern "C" {
 	{
 		return scheduleEvent(id, day, minute, (int)TURN_OFF);
 	}
+
+	void LightScheduler_ScheduleRemove(int id, Day day, int minute)
+	{
+		int i;
+
+		for (i = 0; i < MAX_EVENTS; i++)
+		{
+			if (scheduled_events_[i].id == id
+				&& scheduled_events_[i].day == day
+				&& scheduled_events_[i].minuteOfDay == minute)
+			{
+				scheduled_events_[i].id = UNUSED;
+			}
+		}
+	}
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

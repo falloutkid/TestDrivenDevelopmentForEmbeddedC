@@ -26,8 +26,14 @@ namespace UnitTestProject
 
 		void checkLightState(int id, int state)
 		{
-			Assert::AreEqual(id, LightControllerSpy_GetLastId());
-			Assert::AreEqual(state, LightControllerSpy_GetLastState());
+			if (id == LIGHT_ID_UNKNOWN)
+			{
+				Assert::AreEqual(id, LightControllerSpy_GetLastId());
+				Assert::AreEqual(state, LightControllerSpy_GetLastState());
+			}
+			else {
+				Assert::AreEqual(state, LightControllerSpy_GetLightState(id));
+			}
 		}
 
 		void setTimeTo(int day, int minute)
@@ -130,6 +136,17 @@ namespace UnitTestProject
 				Assert::AreEqual((int)LS_OK, LightScheduler_ScheduleTurnOn(6, MONDAY, 600 + i));
 
 			Assert::AreEqual((int)LS_TOO_MANY_EVENTS, LightScheduler_ScheduleTurnOn(6, MONDAY, 600 + i));
+		}
+
+		TEST_METHOD(RemoveRecyclesScheduleSlot)
+		{
+			int i;
+			for (i = 0; i < 128; i++)
+				Assert::AreEqual((int)LS_OK, LightScheduler_ScheduleTurnOn(6, MONDAY, 600 + i));
+
+			LightScheduler_ScheduleRemove(6, MONDAY, 600);
+
+			Assert::AreEqual((int)LS_OK, LightScheduler_ScheduleTurnOn(13, MONDAY, 1000));
 		}
 	};
 
