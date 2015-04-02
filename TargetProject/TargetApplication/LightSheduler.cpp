@@ -28,11 +28,13 @@ extern "C" {
 	void LightScheduler_Create(void)
 	{
 		scheduled_event_.id = UNUSED;
+
+		TimeService_SetPeriodicAlarmInSeconds(60, LightScheduler_WakeUp);
 	}
 
 	void LightScheduler_Destroy(void)
 	{
-
+		TimeService_CancelPeriodicAlarmInSeconds(60, LightScheduler_WakeUp);
 	}
 
 	void operateLightController(ScheduledLightEvent* light_event)

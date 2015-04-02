@@ -110,4 +110,16 @@ namespace UnitTestProject
 			checkLightState(3, LIGHT_ON);
 		}
 	};
+
+	TEST_CLASS(TEST_LightSchedulerInitAndCleanup)
+	{
+	public:
+		TEST_METHOD(DestroyCancelsOneMinuteAlarm)
+		{
+			LightScheduler_Create();
+			LightScheduler_Destroy();
+			
+			Assert::AreEqual((void*)nullptr, (void *)FakeTimeService_GetAlarmCallback());
+		}
+	};
 }
