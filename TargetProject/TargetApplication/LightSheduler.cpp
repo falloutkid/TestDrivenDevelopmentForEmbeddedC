@@ -95,10 +95,10 @@ extern "C" {
 				scheduled_events_[i].day = day;
 				scheduled_events_[i].minuteOfDay = minute;
 				scheduled_events_[i].event = event;
-				return 0;
+				return LS_OK;
 			}
 		}
-		return 0;
+		return LS_TOO_MANY_EVENTS;
 	}
 
 	int LightScheduler_ScheduleTurnOn(int id, Day day, int minute)
