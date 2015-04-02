@@ -51,10 +51,11 @@ extern "C" {
 		if (time->dayOfWeek == light_event->day)
 			return true;
 
-		if ((light_event->day == WEEKEND) && ((time->dayOfWeek == SATURDAY) || (time->dayOfWeek == SUNDAY)))
+		bool is_weekend = (time->dayOfWeek == SATURDAY) || (time->dayOfWeek == SUNDAY);
+		if ((light_event->day == WEEKEND) && is_weekend)
 			return true;
 
-		if ((light_event->day == WEEKDAY) && ((time->dayOfWeek != SATURDAY) && (time->dayOfWeek == SUNDAY)))
+		if ((light_event->day == WEEKDAY) && !is_weekend)
 			return true;
 
 		return false;
