@@ -23,11 +23,12 @@ extern "C" {
 		int event;
 	} ScheduledLightEvent;
 
-	static ScheduledLightEvent scheduled_event_;
+	static ScheduledLightEvent scheduled_events_[MAX_EVENTS];
 
 	void LightScheduler_Create(void)
 	{
-		scheduled_event_.id = UNUSED;
+		for (int i = 0; i < MAX_EVENTS;i++)
+			scheduled_events_[i].id = UNUSED;
 
 		TimeService_SetPeriodicAlarmInSeconds(60, LightScheduler_WakeUp);
 	}
@@ -40,9 +41,9 @@ extern "C" {
 	void operateLightController(ScheduledLightEvent* light_event)
 	{
 		if (light_event->event == (int)TURN_ON)
-			LightController_On(scheduled_event_.id);
+			LightController_On(light_event->id);
 		else
-			LightController_Off(scheduled_event_.id);
+			LightController_Off(light_event->id);
 	}
 
 	bool isLightRespondToday(Time* time, ScheduledLightEvent* light_event)
@@ -79,16 +80,24 @@ extern "C" {
 	{
 		Time time;
 		TimeService_GetTime(&time);
-
-		processLightController(&time, &scheduled_event_);
+		for (int i = 0; i < MAX_EVENTS; i++)
+			processLightController(&time, &scheduled_events_[i]);
 	}
 
 	int scheduleEvent(int id, Day day, int minute, int event)
 	{
-		scheduled_event_.id = id;
-		scheduled_event_.day = day;
-		scheduled_event_.minuteOfDay = minute;
-		scheduled_event_.event = event;
+
+		for (int i = 0; i < MAX_EVENTS; i++)
+		{
+			if (scheduled_events_[i].id == UNUSED)
+			{
+				scheduled_events_[i].id = id;
+				scheduled_events_[i].day = day;
+				scheduled_events_[i].minuteOfDay = minute;
+				scheduled_events_[i].event = event;
+				return 0;
+			}
+		}
 		return 0;
 	}
 

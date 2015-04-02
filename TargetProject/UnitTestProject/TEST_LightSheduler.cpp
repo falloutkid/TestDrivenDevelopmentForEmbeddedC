@@ -142,5 +142,36 @@ namespace UnitTestProject
 			
 			Assert::AreEqual((void*)nullptr, (void *)FakeTimeService_GetAlarmCallback());
 		}
+
+		void checkLightState(int id, int state)
+		{
+			if (id == LIGHT_ID_UNKNOWN)
+			{
+				Assert::AreEqual(id, LightControllerSpy_GetLastId());
+				Assert::AreEqual(state, LightControllerSpy_GetLastState());
+			}
+			else {
+				Assert::AreEqual(state, LightControllerSpy_GetLightState(id));
+			}
+		}
+
+		void setTimeTo(int day, int minute)
+		{
+			FakeTimeService_SetDay(day);
+			FakeTimeService_SetMinute(minute);
+		}
+
+		TEST_METHOD(ScheduleTwoEventsAtTheSameTime)
+		{
+			LightScheduler_ScheduleTurnOn(3, SUNDAY, 1200);
+			LightScheduler_ScheduleTurnOn(12, SUNDAY, 1200);
+
+			setTimeTo(SUNDAY, 1200);
+
+			LightScheduler_WakeUp();
+
+			checkLightState(3, LIGHT_ON);
+			checkLightState(12, LIGHT_ON);
+		}
 	};
 }

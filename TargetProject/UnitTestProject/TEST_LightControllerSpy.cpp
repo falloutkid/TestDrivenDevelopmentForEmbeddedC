@@ -33,5 +33,25 @@ namespace UnitTestProject
 			Assert::AreEqual(10, LightControllerSpy_GetLastId());
 			Assert::AreEqual((int)LIGHT_ON, LightControllerSpy_GetLastState());
 		}
+
+		void checkLightState(int id, int state)
+		{
+			if (id == LIGHT_ID_UNKNOWN)
+			{
+				Assert::AreEqual(id, LightControllerSpy_GetLastId());
+				Assert::AreEqual(state, LightControllerSpy_GetLastState());
+			}
+			else {
+				Assert::AreEqual(state, LightControllerSpy_GetLightState(id));
+			}
+		}
+
+		TEST_METHOD(RememberAllLightStates)
+		{
+			LightController_On(0);
+			LightController_Off(31);
+			checkLightState(0, LIGHT_ON);
+			checkLightState(31, LIGHT_OFF);
+		}
 	};
 }
