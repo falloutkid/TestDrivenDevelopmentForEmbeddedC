@@ -162,6 +162,13 @@ namespace UnitTestProject
 			checkLightState(6, LIGHT_STATE_UNKNOWN);
 			checkLightState(7, LIGHT_ON);
 		}
+
+		TEST_METHOD(AcceptsValidLightIds)
+		{
+			Assert::AreEqual((int)LS_OK, LightScheduler_ScheduleTurnOn(0, MONDAY, 600));
+			Assert::AreEqual((int)LS_OK, LightScheduler_ScheduleTurnOn(15, MONDAY, 600));
+			Assert::AreEqual((int)LS_OK, LightScheduler_ScheduleTurnOn(31, MONDAY, 600));
+		}
 	};
 
 	TEST_CLASS(TEST_LightSchedulerInitAndCleanup)
