@@ -114,6 +114,27 @@ namespace UnitTestProject
 	TEST_CLASS(TEST_LightSchedulerInitAndCleanup)
 	{
 	public:
+		TEST_METHOD_INITIALIZE(setup)
+		{
+			LightController_Create();
+			LightScheduler_Create();
+		}
+
+		TEST_METHOD_CLEANUP(teardown)
+		{
+			LightScheduler_Destroy();
+			LightController_Destroy();
+		}
+
+		TEST_METHOD(CreateStartsOneMinuteAlarm)
+		{
+			LightScheduler_Create();
+			Assert::AreEqual((void *)LightScheduler_WakeUp,	(void *)FakeTimeService_GetAlarmCallback());
+
+			Assert::AreEqual(60, FakeTimeService_GetAlarmPeriod());
+			LightScheduler_Destroy();
+		}
+
 		TEST_METHOD(DestroyCancelsOneMinuteAlarm)
 		{
 			LightScheduler_Create();

@@ -56,6 +56,11 @@ extern "C" {
 	{
 		return callback_;
 	}
+
+	int FakeTimeService_GetAlarmPeriod(void)
+	{
+		return period_;
+	}
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
