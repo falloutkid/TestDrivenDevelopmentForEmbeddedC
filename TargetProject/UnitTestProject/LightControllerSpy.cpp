@@ -31,7 +31,7 @@ extern "C" {
 		last_id_ = (int)LIGHT_ID_UNKNOWN;
 		last_state_ = (int)LIGHT_STATE_UNKNOWN;
 
-		memset(lights, (int)LIGHT_OFF, sizeof(lights));
+		memset(lights, (int)LIGHT_STATE_UNKNOWN, sizeof(lights));
 	}
 	void LightController_Destroy(void)
 	{
