@@ -47,5 +47,21 @@ namespace UnitTestProject
 				AssertMinuteIsInRange();
 			}
 		}
+
+		TEST_METHOD(AllValuesPossible)
+		{
+			int hit[2 * BOUND + 1];
+			memset(hit, 0, sizeof(hit));
+			int i;
+			for (i = 0; i < 300; i++)
+			{
+				minute = RandomMinute_Get();
+				AssertMinuteIsInRange();
+				hit[minute + BOUND]++;
+			}
+			for (i = 0; i < 2 * BOUND + 1; i++) {
+				Assert::IsTrue(hit[i] > 0);
+			}
+		}
 	};
 }
