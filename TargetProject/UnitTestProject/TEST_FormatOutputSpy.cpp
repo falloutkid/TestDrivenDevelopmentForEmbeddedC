@@ -28,5 +28,12 @@ namespace UnitTestProject
 			FormatOutput("Hello, World\n");
 			Assert::AreEqual("Hello, World\n", FormatOutputSpy_GetOutput());
 		}
+
+		TEST_METHOD(LimitOutputBufferSize)
+		{
+			FormatOutputSpy_Create(4);
+			FormatOutput("Hello, World\n");
+			Assert::AreEqual("Hell", FormatOutputSpy_GetOutput());
+		}
 	};
 }
