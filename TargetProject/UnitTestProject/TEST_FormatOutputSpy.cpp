@@ -35,5 +35,13 @@ namespace UnitTestProject
 			FormatOutput("Hello, World\n");
 			Assert::AreEqual("Hell", FormatOutputSpy_GetOutput());
 		}
+
+		TEST_METHOD(PrintMultipleTimes)
+		{
+			FormatOutputSpy_Create(25);
+			FormatOutput("Hello");
+			FormatOutput(", World\n");
+			Assert::AreEqual("Hello, World\n", FormatOutputSpy_GetOutput());
+		}
 	};
 }
