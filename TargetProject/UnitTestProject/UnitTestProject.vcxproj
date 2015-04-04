@@ -85,6 +85,7 @@
   <ItemGroup>
     <ClInclude Include="FakeRandomMinute.h" />
     <ClInclude Include="FakeTimeService.h" />
+    <ClInclude Include="FormatOutputSpy.h" />
     <ClInclude Include="LightControllerSpy.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -92,6 +93,7 @@
   <ItemGroup>
     <ClCompile Include="FakeRandomMinute.cpp" />
     <ClCompile Include="FakeTimeService.cpp" />
+    <ClCompile Include="FormatOutputSpy.cpp" />
     <ClCompile Include="LightControllerSpy.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -99,6 +101,7 @@
     </ClCompile>
     <ClCompile Include="sample_unittest.cpp" />
     <ClCompile Include="TEST_FakeTimeService.cpp" />
+    <ClCompile Include="TEST_FormatOutputSpy.cpp" />
     <ClCompile Include="TEST_LedDeiver.cpp" />
     <ClCompile Include="TEST_LightControllerSpy.cpp" />
     <ClCompile Include="TEST_LightSchedulerRandomize.cpp" />
