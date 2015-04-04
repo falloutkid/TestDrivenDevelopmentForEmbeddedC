@@ -43,5 +43,14 @@ namespace UnitTestProject
 			FormatOutput(", World\n");
 			Assert::AreEqual("Hello, World\n", FormatOutputSpy_GetOutput());
 		}
+
+		TEST_METHOD(PrintMultipleOutputsPastFull)
+		{
+			FormatOutputSpy_Create(12);
+			FormatOutput("12345");
+			FormatOutput("67890");
+			FormatOutput("ABCDEF");
+			Assert::AreEqual("1234567890AB", FormatOutputSpy_GetOutput());
+		}
 	};
 }
