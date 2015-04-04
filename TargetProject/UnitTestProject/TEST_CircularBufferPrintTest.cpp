@@ -18,7 +18,7 @@ namespace UnitTestProject
 
 		int(*saveFormatOutput)(const char * format, ...);
 
-		TEST_METHOD_INITIALIZE( setup)
+		TEST_METHOD_INITIALIZE(setup)
 		{
 			saveFormatOutput = FormatOutput;
 			FormatOutput = FormatOutputSpy;
@@ -28,7 +28,7 @@ namespace UnitTestProject
 			buffer = CircularBuffer_Create(10);
 		}
 
-		TEST_METHOD_CLEANUP( teardown)
+		TEST_METHOD_CLEANUP(teardown)
 		{
 			FormatOutput = saveFormatOutput;
 
@@ -39,6 +39,14 @@ namespace UnitTestProject
 		TEST_METHOD(PrintEmpty)
 		{
 			expectedOutput = "Circular buffer content:\n<>\n";
+			CircularBuffer_Print(buffer);
+			Assert::AreEqual(expectedOutput, actualOutput);
+		}
+
+		TEST_METHOD(PrintAfterOneIsPut)
+		{
+			expectedOutput = "Circular buffer content:\n<17>\n";
+			CircularBuffer_Put(buffer, 17);
 			CircularBuffer_Print(buffer);
 			Assert::AreEqual(expectedOutput, actualOutput);
 		}

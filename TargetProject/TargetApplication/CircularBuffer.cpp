@@ -49,3 +49,16 @@ void CircularBuffer_Print(CircularBuffer self)
 
 	FormatOutput(">\n");
 }
+
+int CircularBuffer_Put(CircularBuffer self, int value)
+{
+	if (self->count >= self->capacity)
+		return 0;
+
+	self->count++;
+	self->values[self->index++] = value;
+	if (self->index >= self->capacity)
+		self->index = 0;
+
+	return 1;
+}
