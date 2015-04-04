@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "LightScheduler.h"
 #include "LightController.h"
+#include "RandomMinute.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -9,7 +10,9 @@ extern "C" {
 	enum
 	{
 		TURN_OFF,
-		TURN_ON,	
+		TURN_ON,
+		RANDOM_ON,
+		RANDOM_OFF
 	};
 
 	const int UNUSED = -1;
@@ -21,6 +24,8 @@ extern "C" {
 		Day day;
 		int minuteOfDay;
 		int event;
+		int randomize;
+		int randomMinutes;
 	} ScheduledLightEvent;
 
 	static ScheduledLightEvent scheduled_events_[MAX_EVENTS];
@@ -78,10 +83,43 @@ extern "C" {
 
 	void LightScheduler_WakeUp(void)
 	{
+		int i;
 		Time time;
+		int td;
+		int min;
+
 		TimeService_GetTime(&time);
-		for (int i = 0; i < MAX_EVENTS; i++)
-			processLightController(&time, &scheduled_events_[i]);
+		td = time.dayOfWeek;
+		min = time.minuteOfDay;
+
+		for (i = 0; i < MAX_EVENTS; i++)
+		{
+			ScheduledLightEvent * se = &scheduled_events_[i];
+			if (se->id != UNUSED)
+			{
+				Day d = se->day;
+				if ((d == EVERYDAY) || (d == td) || (d == WEEKEND &&
+					(SATURDAY == td || SUNDAY == td)) ||
+					(d == WEEKDAY && (td >= MONDAY
+					&& td <= FRIDAY)))
+				{
+					/* it's the right day */
+					if (min == se->minuteOfDay + se->randomMinutes)
+					{
+						if (TURN_ON == se->event)
+							LightController_On(se->id);
+						else if (TURN_OFF == se->event)
+							LightController_Off(se->id);
+
+						if (se->randomize == RANDOM_ON)
+							se->randomMinutes = RandomMinute_Get();
+						else
+							se->randomMinutes = 0;
+
+					}
+				}
+			}
+		}
 	}
 
 	int scheduleEvent(int id, Day day, int minute, int event)
@@ -110,6 +148,21 @@ extern "C" {
 	{
 		return scheduleEvent(id, day, minute, (int)TURN_OFF);
 	}
+
+	void LightScheduler_Randomize(int id, Day day, int minuteOfDay)
+	{
+		int i;
+		for (i = 0; i < MAX_EVENTS; i++)
+		{
+			ScheduledLightEvent * scheduled_event = &scheduled_events_[i];
+			if (scheduled_event->id == id && scheduled_event->day == day && scheduled_event->minuteOfDay == minuteOfDay)
+			{
+				scheduled_event->randomize = RANDOM_ON;
+				scheduled_event->randomMinutes = RandomMinute_Get();
+			}
+		}
+	}
+
 
 	void LightScheduler_ScheduleRemove(int id, Day day, int minute)
 	{

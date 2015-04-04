@@ -17,6 +17,7 @@ extern "C" {
 	void LightScheduler_Destroy(void);
 	int LightScheduler_ScheduleTurnOn(int id, Day day, int minute);
 	int LightScheduler_ScheduleTurnOff(int id, Day day, int minute);
+	void LightScheduler_Randomize(int id, Day day, int minuteOfDay);
 	void LightScheduler_ScheduleRemove(int id, Day day, int minute);
 	void LightScheduler_WakeUp(void);
 
