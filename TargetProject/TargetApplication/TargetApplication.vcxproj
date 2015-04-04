@@ -74,6 +74,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CircularBuffer.h" />
     <ClInclude Include="LedDriver.h" />
     <ClInclude Include="LightController.h" />
     <ClInclude Include="LightScheduler.h" />
@@ -85,6 +86,7 @@
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CircularBuffer.cpp" />
     <ClCompile Include="LedDriver.cpp" />
     <ClCompile Include="LightSheduler.cpp" />
     <ClCompile Include="RandomMinute.cpp" />

@@ -100,6 +100,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="sample_unittest.cpp" />
+    <ClCompile Include="TEST_CircularBuffer.cpp" />
+    <ClCompile Include="TEST_CircularBufferPrintTest.cpp" />
     <ClCompile Include="TEST_FakeTimeService.cpp" />
     <ClCompile Include="TEST_FormatOutputSpy.cpp" />
     <ClCompile Include="TEST_LedDeiver.cpp" />

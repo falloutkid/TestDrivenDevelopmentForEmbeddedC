@@ -83,5 +83,11 @@
     <ClCompile Include="FormatOutputSpy.cpp">
       <Filter>ソース ファイル\SpyCode</Filter>
     </ClCompile>
+    <ClCompile Include="TEST_CircularBuffer.cpp">
+      <Filter>ソース ファイル\TestCode</Filter>
+    </ClCompile>
+    <ClCompile Include="TEST_CircularBufferPrintTest.cpp">
+      <Filter>ソース ファイル\TestCode</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
