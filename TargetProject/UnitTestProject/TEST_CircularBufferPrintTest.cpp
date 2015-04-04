@@ -50,5 +50,32 @@ namespace UnitTestProject
 			CircularBuffer_Print(buffer);
 			Assert::AreEqual(expectedOutput, actualOutput);
 		}
+
+		TEST_METHOD(PrintNotYetWrappedOrFull)
+		{
+			expectedOutput = "Circular buffer content:\n<10, 20, 30>\n";
+			CircularBuffer_Put(buffer, 10);
+			CircularBuffer_Put(buffer, 20);
+			CircularBuffer_Put(buffer, 30);
+			CircularBuffer_Print(buffer);
+			Assert::AreEqual(expectedOutput, actualOutput);
+		}
+
+		TEST_METHOD(PrintNotYetWrappedAndIsFull)
+		{
+			expectedOutput = "Circular buffer content:\n<31, 41, 59, 26, 53>\n";
+
+			CircularBuffer b = CircularBuffer_Create(5);
+			CircularBuffer_Put(b, 31);
+			CircularBuffer_Put(b, 41);
+			CircularBuffer_Put(b, 59);
+			CircularBuffer_Put(b, 26);
+			CircularBuffer_Put(b, 53);
+
+			CircularBuffer_Print(b);
+
+			Assert::AreEqual(expectedOutput, actualOutput);
+			CircularBuffer_Destroy(b);
+		}
 	};
 }
