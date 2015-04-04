@@ -53,5 +53,8 @@
     <ClCompile Include="FakeTimeService.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="TEST_RandomMinute.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

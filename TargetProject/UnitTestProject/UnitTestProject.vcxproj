@@ -100,6 +100,7 @@
     <ClCompile Include="TEST_LedDeiver.cpp" />
     <ClCompile Include="TEST_LightControllerSpy.cpp" />
     <ClCompile Include="TEST_LightSheduler.cpp" />
+    <ClCompile Include="TEST_RandomMinute.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TargetApplication\TargetApplication.vcxproj">

@@ -77,6 +77,7 @@
     <ClInclude Include="LedDriver.h" />
     <ClInclude Include="LightController.h" />
     <ClInclude Include="LightScheduler.h" />
+    <ClInclude Include="RandomMinute.h" />
     <ClInclude Include="SampleSource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -85,6 +86,7 @@
   <ItemGroup>
     <ClCompile Include="LedDriver.cpp" />
     <ClCompile Include="LightSheduler.cpp" />
+    <ClCompile Include="RandomMinute.cpp" />
     <ClCompile Include="SampleSource.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
