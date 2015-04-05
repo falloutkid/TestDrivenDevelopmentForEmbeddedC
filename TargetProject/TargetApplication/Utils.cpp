@@ -14,4 +14,4 @@ int(*FormatOutput)(const char * format, ...) = FormatOutput_Impl;
 #else
 
 int(*FormatOutput)(const char * format, ...) = printf;
-#endif 
+#endif

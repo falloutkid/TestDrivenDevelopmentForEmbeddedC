@@ -22,6 +22,8 @@ namespace UnitTestProject
 	TEST_CLASS(SampleUnitTest)
 	{
 	public:
+		double(*sample_function)(double, double);
+
 		SampleUnitTest()
 		{
 			Logger::WriteMessage("In Class1\n");
@@ -64,6 +66,12 @@ namespace UnitTestProject
 		{
 			Logger::WriteMessage("In TestMethodSample2 Execute\n");
 			Assert::IsTrue(true);
+		}
+
+		TEST_METHOD(FunctionPointerAdd)
+		{		
+			sample_function = Add;
+			Assert::AreEqual(5.0, sample_function(1, 4));
 		}
 
 		BEGIN_TEST_METHOD_ATTRIBUTE(TestMethodSample2)
