@@ -99,6 +99,18 @@ void MockIO_Expect_ReadThenReturn(ioAddress addr, ioData value)
 	recordExpectation(FLASH_READ, addr, value);
 }
 
+static void failExpectation(char * expectationFailMessage)
+{
+	char message[100];
+	int size = sizeof message - 1;
+	int offset = snprintf(message, size,
+		report_expectation_number, getExpectationCount + 1);
+	snprintf(message + offset, size - offset,
+		expectationFailMessage, expected.addr, expected.value,
+		actual.addr, actual.value);
+	fail(message);
+}
+
 static void failWhenNotAllExpectationsUsed(void)
 {
 	char format[] = "Expected %d reads/writes but got %d";
@@ -112,9 +124,76 @@ static void failWhenNotAllExpectationsUsed(void)
 	fail(message);
 }
 
+static void setExpectedAndActual(ioAddress addr, ioData value)
+{
+	expected.addr = expectations[getExpectationCount].addr;
+	expected.value = expectations[getExpectationCount].value;
+	actual.addr = addr;
+	actual.value = value;
+}
+
+static void failWhenNoUnusedExpectations(char * format)
+{
+	char message[100];
+	int size = sizeof message - 1;
+
+	if (getExpectationCount >= setExpectationCount)
+	{
+		int offset = snprintf(message, size,
+			report_no_more_expectations, getExpectationCount + 1);
+		snprintf(message + offset, size - offset,
+			format, actual.addr, actual.value);
+		fail(message);
+	}
+}
+
+static void failWhen(int condition, char * expectationFailMessage)
+{
+	if (condition)
+		failExpectation(expectationFailMessage);
+}
+
+static int expectationIsNot(int kind)
+{
+	return kind != expectations[getExpectationCount].kind;
+}
+
+static int expectedAddressIsNot(ioAddress addr)
+{
+	return expected.addr != addr;
+}
+
+static int expectedDataIsNot(ioData data)
+{
+	return expected.value != data;
+}
+
+
 void MockIO_Verify_Complete(void)
 {
 	if (failureAlreadyReported)
 		return;
 	failWhenNotAllExpectationsUsed();
+}
+
+void IO_Write(ioAddress addr, ioData value)
+{
+	setExpectedAndActual(addr, value);
+	failWhenNotInitialized();
+	failWhenNoUnusedExpectations(report_write_but_out_of_expectations);
+	failWhen(expectationIsNot(FLASH_WRITE), report_expect_read_was_write);
+	failWhen(expectedAddressIsNot(addr), report_write_does_not_match);
+	failWhen(expectedDataIsNot(value), report_write_does_not_match);
+	getExpectationCount++;
+}
+
+ioData IO_Read(ioAddress addr)
+{
+	setExpectedAndActual(addr, NoExpectedValue);
+	failWhenNotInitialized();
+	failWhenNoUnusedExpectations(report_read_but_out_of_expectations);
+	failWhen(expectationIsNot(FLASH_READ), report_expect_write_was_read);
+	failWhen(expectedAddressIsNot(addr), report_read_wrong_address);
+
+	return expectations[getExpectationCount++].value;
 }

@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include <TargetApplication\Flash.h>
-#include <TargetApplication\IO.h>
 #include <TargetApplication\m28w160ect.h>
 #include "MOCK_IO.h"
 
