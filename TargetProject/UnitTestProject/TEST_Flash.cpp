@@ -41,5 +41,31 @@ namespace UnitTestProject
 			result = Flash_Write(address, data);
 			Assert::AreEqual((int)FLASH_SUCCESS, result);
 		}
+
+		TEST_METHOD(WriteSucceeds_NotImmediatelyReady)
+		{
+			MockIO_Expect_Write(CommandRegister, ProgramCommand);
+			MockIO_Expect_Write(address, data);
+			MockIO_Expect_ReadThenReturn(StatusRegister, 0);
+			MockIO_Expect_ReadThenReturn(StatusRegister, 0);
+			MockIO_Expect_ReadThenReturn(StatusRegister, 0);
+			MockIO_Expect_ReadThenReturn(StatusRegister, ReadyBit);
+			MockIO_Expect_ReadThenReturn(address, data);
+
+			result = Flash_Write(address, data);
+			Assert::AreEqual((int)FLASH_SUCCESS, result);
+		}
+
+		TEST_METHOD(WriteFails_VppError)
+		{
+			MockIO_Expect_Write(CommandRegister, ProgramCommand);
+			MockIO_Expect_Write(address, data);
+			MockIO_Expect_ReadThenReturn(StatusRegister, ReadyBit | VppErrorBit);
+			MockIO_Expect_Write(CommandRegister, Reset);
+
+			result = Flash_Write(address, data);
+
+			Assert::AreEqual((int)FLASH_VPP_ERROR, result);
+		}
 	};
 }
