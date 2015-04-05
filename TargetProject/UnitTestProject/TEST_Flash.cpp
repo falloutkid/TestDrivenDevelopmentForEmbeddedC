@@ -67,5 +67,17 @@ namespace UnitTestProject
 
 			Assert::AreEqual((int)FLASH_VPP_ERROR, result);
 		}
+
+		TEST_METHOD(WriteFails_FlashReadBackError)
+		{
+			MockIO_Expect_Write(CommandRegister, ProgramCommand);
+			MockIO_Expect_Write(address, data);
+			MockIO_Expect_ReadThenReturn(StatusRegister, ReadyBit);
+			MockIO_Expect_ReadThenReturn(address, data - 1);
+
+			result = Flash_Write(address, data);
+
+			Assert::AreEqual((int)FLASH_READ_BACK_ERROR, result);
+		}
 	};
 }
