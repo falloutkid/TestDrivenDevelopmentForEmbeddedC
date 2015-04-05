@@ -80,6 +80,7 @@
     <ClInclude Include="LedDriver.h" />
     <ClInclude Include="LightController.h" />
     <ClInclude Include="LightScheduler.h" />
+    <ClInclude Include="m28w160ect.h" />
     <ClInclude Include="RandomMinute.h" />
     <ClInclude Include="SampleSource.h" />
     <ClInclude Include="stdafx.h" />
