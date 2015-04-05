@@ -75,6 +75,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CircularBuffer.h" />
+    <ClInclude Include="Flash.h" />
+    <ClInclude Include="IO.h" />
     <ClInclude Include="LedDriver.h" />
     <ClInclude Include="LightController.h" />
     <ClInclude Include="LightScheduler.h" />
@@ -87,6 +89,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CircularBuffer.cpp" />
+    <ClCompile Include="Flash.cpp" />
+    <ClCompile Include="IO.cpp" />
     <ClCompile Include="LedDriver.cpp" />
     <ClCompile Include="LightSheduler.cpp" />
     <ClCompile Include="RandomMinute.cpp" />

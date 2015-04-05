@@ -87,6 +87,7 @@
     <ClInclude Include="FakeTimeService.h" />
     <ClInclude Include="FormatOutputSpy.h" />
     <ClInclude Include="LightControllerSpy.h" />
+    <ClInclude Include="MOCK_IO.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -95,6 +96,7 @@
     <ClCompile Include="FakeTimeService.cpp" />
     <ClCompile Include="FormatOutputSpy.cpp" />
     <ClCompile Include="LightControllerSpy.cpp" />
+    <ClCompile Include="MOCK_IO.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -103,6 +105,7 @@
     <ClCompile Include="TEST_CircularBuffer.cpp" />
     <ClCompile Include="TEST_CircularBufferPrintTest.cpp" />
     <ClCompile Include="TEST_FakeTimeService.cpp" />
+    <ClCompile Include="TEST_Flash.cpp" />
     <ClCompile Include="TEST_FormatOutputSpy.cpp" />
     <ClCompile Include="TEST_LedDeiver.cpp" />
     <ClCompile Include="TEST_LightControllerSpy.cpp" />
