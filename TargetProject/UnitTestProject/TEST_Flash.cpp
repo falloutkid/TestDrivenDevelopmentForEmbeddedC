@@ -105,5 +105,17 @@ namespace UnitTestProject
 			result = Flash_Write(address, data);
 			Assert::AreEqual((int)FLASH_TIMEOUT_ERROR, result);
 		}
+
+		TEST_METHOD(WriteFails_TimeoutAtEndOfTime)
+		{
+			FakeMicroTime_Init(0xffffffff, 500);
+			Flash_Create();
+			MockIO_Expect_Write(CommandRegister, ProgramCommand);
+			MockIO_Expect_Write(address, data);
+			for (int i = 0; i < 10; i++)
+				MockIO_Expect_ReadThenReturn(StatusRegister, ~ReadyBit);
+			result = Flash_Write(address, data);
+			Assert::AreEqual((int)FLASH_TIMEOUT_ERROR, result);
+		}
 	};
 }
