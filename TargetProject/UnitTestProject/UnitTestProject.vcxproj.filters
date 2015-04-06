@@ -45,6 +45,9 @@
     <ClInclude Include="MOCK_IO.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="FakeMicroTime.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -96,6 +99,12 @@
       <Filter>ソース ファイル\TestCode</Filter>
     </ClCompile>
     <ClCompile Include="MOCK_IO.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="FakeMicroTime.cpp">
+      <Filter>ソース ファイル\FakeCode</Filter>
+    </ClCompile>
+    <ClCompile Include="TEST_FakeMicroTime.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

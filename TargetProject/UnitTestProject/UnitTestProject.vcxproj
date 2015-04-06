@@ -83,6 +83,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="FakeMicroTime.h" />
     <ClInclude Include="FakeRandomMinute.h" />
     <ClInclude Include="FakeTimeService.h" />
     <ClInclude Include="FormatOutputSpy.h" />
@@ -92,6 +93,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FakeMicroTime.cpp" />
     <ClCompile Include="FakeRandomMinute.cpp" />
     <ClCompile Include="FakeTimeService.cpp" />
     <ClCompile Include="FormatOutputSpy.cpp" />
@@ -104,6 +106,7 @@
     <ClCompile Include="sample_unittest.cpp" />
     <ClCompile Include="TEST_CircularBuffer.cpp" />
     <ClCompile Include="TEST_CircularBufferPrintTest.cpp" />
+    <ClCompile Include="TEST_FakeMicroTime.cpp" />
     <ClCompile Include="TEST_FakeTimeService.cpp" />
     <ClCompile Include="TEST_Flash.cpp" />
     <ClCompile Include="TEST_FormatOutputSpy.cpp" />

@@ -3,6 +3,7 @@
 #include <TargetApplication\Flash.h>
 #include <TargetApplication\m28w160ect.h>
 #include "MOCK_IO.h"
+#include "FakeMicroTime.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -91,6 +92,18 @@ namespace UnitTestProject
 			result = Flash_Write(address, data);
 
 			Assert::AreEqual((int)FLASH_SUCCESS, result);
+		}
+
+		TEST_METHOD(WriteFails_Timeout)
+		{
+			FakeMicroTime_Init(0, 500);
+			Flash_Create();
+			MockIO_Expect_Write(CommandRegister, ProgramCommand);
+			MockIO_Expect_Write(address, data);
+			for (int i = 0; i < 10; i++)
+				MockIO_Expect_ReadThenReturn(StatusRegister, ~ReadyBit);
+			result = Flash_Write(address, data);
+			Assert::AreEqual((int)FLASH_TIMEOUT_ERROR, result);
 		}
 	};
 }
